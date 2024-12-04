@@ -1,5 +1,3 @@
-module Main where
-
 import Data.List (foldl, sort, zip)
 import Data.Maybe (mapMaybe)
 import System.Environment (getArgs)
