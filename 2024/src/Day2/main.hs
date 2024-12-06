@@ -1,3 +1,5 @@
+module Day2.Main where
+
 import Data.List (foldl)
 import Data.Void
 import System.Environment (getArgs)

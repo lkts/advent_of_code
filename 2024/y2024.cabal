@@ -13,11 +13,19 @@ extra-doc-files:    CHANGELOG.md
 common warnings
     ghc-options: -Wall
 
+library
+  build-depends:    base ^>=4.17.2.1,megaparsec
+  hs-source-dirs: src
+  default-language: Haskell2010
+  exposed-modules:
+    Day2.Main
+    Day3.Main
+
 executable y2024
     import:           warnings
     main-is:          Main.hs
     -- other-modules:
     -- other-extensions:
-    build-depends:    base ^>=4.17.2.1
+    build-depends:    base ^>=4.17.2.1, y2024
     hs-source-dirs:   app
     default-language: Haskell2010
