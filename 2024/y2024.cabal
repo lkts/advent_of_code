@@ -20,6 +20,7 @@ library
   exposed-modules:
     Day2.Main
     Day3.Main
+    Day4.Main
 
 executable y2024
     import:           warnings
