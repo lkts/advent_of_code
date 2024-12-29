@@ -3,7 +3,7 @@
 module Day5.Main where
 
 import Control.Monad (void)
-import Data.List (filter, isPrefixOf, tails, transpose)
+import Data.List (filter, isPrefixOf, sortBy, tails, transpose)
 import qualified Data.Map.Strict as Map
 import Data.Void (Void)
 import GHC.Arr (indices)
@@ -51,12 +51,21 @@ isValidSequence ca xs = all (\(i, n) -> everythingBeforeIsCorrect (take i xs) (M
     everythingBeforeIsCorrect :: [Int] -> [Int] -> Bool
     everythingBeforeIsCorrect xs bs = all (`elem` bs) xs
 
+sumMiddleNumbers = sum . map (\l -> l !! (length l `div` 2))
+
 part1 :: Input -> Int
-part1 i = sum . map (\l -> l !! (length l `div` 2)) $ filter (isValidSequence comesAfter) (updates i)
+part1 i = sumMiddleNumbers $ filter (isValidSequence comesAfter) (updates i)
   where
     comesAfter = buildComesAfter $ rules i
 
-part2 _ = 0
+fixSequence :: ComesAfter -> [Int] -> [Int]
+fixSequence ca = sortBy (\a b -> if b `elem` before a then GT else EQ)
+  where
+    before a = Map.findWithDefault [] a ca
+
+part2 i = sumMiddleNumbers $ map (fixSequence comesAfter) $ filter (not . isValidSequence comesAfter) (updates i)
+  where
+    comesAfter = buildComesAfter $ rules i
 
 main :: IO ()
 main = do
@@ -64,4 +73,4 @@ main = do
   let parsed = parse parser "input" content
   case parsed of
     Left bundle -> putStr (errorBundlePretty bundle)
-    Right input -> print $ part1 input
+    Right input -> print $ part2 input
