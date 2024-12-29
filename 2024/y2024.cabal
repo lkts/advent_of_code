@@ -22,6 +22,7 @@ library
     Day3.Main
     Day4.Main
     Day5.Main
+    Day6.Main
 
 executable y2024
     import:           warnings
